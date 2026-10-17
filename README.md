@@ -6,6 +6,8 @@ Pure HTML5 + JavaScript, no engine, no build step and no external assets. All th
 
 ## Run locally
 
+On Windows, double-click `run.bat`. It starts a local server and opens http://localhost:8080; close the window to stop. On any OS:
+
 ```bash
 cd deep-drill
 python -m http.server 8080
