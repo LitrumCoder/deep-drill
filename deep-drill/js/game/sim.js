@@ -308,7 +308,7 @@
   function nextRelic() {
     const s = S();
     const free = [];
-    for (let i = 0; i < G.Pix.RELIC_COUNT; i++) if (!s.relics.includes(i) && s.planet >= G.Pix.RELIC_REQ[i]) free.push(i);
+    for (let i = 0; i < G.Look.RELIC_COUNT; i++) if (!s.relics.includes(i) && s.planet >= G.Look.RELIC_REQ[i]) free.push(i);
     return free.length ? free[Math.floor(Math.random() * free.length)] : -1;
   }
   function rollNode() {
@@ -368,7 +368,7 @@
     if (!canBuy(id)) return false;
     const n = buyCount(id), c = buyCost(id);
     const before = s.lv[id];
-    const tierBefore = G.Pix.tierOf(id, before);
+    const tierBefore = G.Look.tierOf(id, before);
     if (id === 'storage') s.gems -= c; else s.coins = Math.max(0, s.coins - c);
     s.lv[id] += n;
     rt.lastInputAt = performance.now();
@@ -378,7 +378,7 @@
       ev('drill', n);
       s.stats.maxDrill = Math.max(s.stats.maxDrill, s.lv.drill);
     }
-    const tierAfter = G.Pix.tierOf(id, s.lv[id]);
+    const tierAfter = G.Look.tierOf(id, s.lv[id]);
     if (tierAfter > tierBefore) { G.Audio.sfx('milestone'); G.UI?.lookUpgraded(id, tierAfter); G.Render.flashDrill(); }
     else if (id === 'drill' && Math.floor(s.lv.drill / 25) > Math.floor(before / 25)) { G.Audio.sfx('milestone'); G.UI?.milestone(); }
     else G.Audio.sfx('buy');

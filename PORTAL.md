@@ -17,7 +17,7 @@
 | Multiplayer | No |
 | Age / PEGI | PEGI 3 (без насилия и чата) |
 | Category | Clicker (Idle) |
-| Tags | idle, clicker, mining, drill, pixel, incremental, upgrade, space |
+| Tags | idle, clicker, mining, drill, 3d, incremental, upgrade, space |
 
 ## 2. Description (EN)
 
@@ -25,7 +25,7 @@
 Drill through the planet's layers to its core, blow it up and fly to the next world!
 
 **Full:**
-Deeper! is a pixel-art idle clicker about a drill digging to the center of the planet. Every meter earns coins, and deeper layers hold richer ore. Upgrade your drill, engine and sorter, smash the stone plates between layers and reach the core. Blow it up, collect core shards for a permanent boost and travel to a new planet!
+Deeper! is a cartoon 3D idle clicker about a drill digging to the center of the planet. Every meter earns coins, and deeper layers hold richer ore. Upgrade your drill, engine and sorter, smash the stone plates between layers and reach the core. Blow it up, collect core shards for a permanent boost and travel to a new planet!
 
 - 10 layers per planet: from soil to the glowing core
 - 5 unique planets and endless progression
@@ -52,7 +52,7 @@ Deeper! is a pixel-art idle clicker about a drill digging to the center of the p
 
 **Коротко:** Бури сквозь слои планеты до самого ядра — взорви его и лети дальше!
 
-**Полностью:** Глубже! — пиксельный idle-кликер про бур, который прокладывает путь к центру планеты. Каждый метр приносит монеты, а чем глубже слой, тем дороже руда. Улучшай бур, двигатель и сортировщик, разбивай каменные плиты между слоями и доберись до ядра. Взорви его, получи осколки ядра с постоянным бонусом и отправляйся на новую планету!
+**Полностью:** Глубже! — мультяшный 3D idle-кликер про бур, который прокладывает путь к центру планеты. Каждый метр приносит монеты, а чем глубже слой, тем дороже руда. Улучшай бур, двигатель и сортировщик, разбивай каменные плиты между слоями и доберись до ядра. Взорви его, получи осколки ядра с постоянным бонусом и отправляйся на новую планету!
 • 10 слоёв на каждой планете: от почвы до сияющего ядра
 • 5 уникальных планет и бесконечное продолжение
 • Бур копает даже без тебя
@@ -82,13 +82,14 @@ Deeper! is a pixel-art idle clicker about a drill digging to the center of the p
 В FAQ CrazyGames сказано, что отклонённую игру можно подать снова, если в ней есть существенные улучшения. Если в портале есть поле для комментария или ты отвечаешь на письмо, вот готовый текст:
 
 > Thanks for the review. We reworked Deeper! Idle Drill based on the quality guidelines:
-> - New custom pixel font across the whole UI and a cleaner first screen (fewer pop-ups, queued notifications, no clutter over the drill).
-> - Dynamic lighting in the mine (drill headlamp, shaft lamps, glowing treasures), a surface mining station and a title splash.
-> - Juicier feedback: coins and gems fly into the counters, the drill visibly evolves with upgrades (new heads, turbine, arms, cargo).
+> - The whole game is now 3D: a low-poly cross-section of the mine with real lighting, a spinning drill head, 3D treasures, pests, companions, carts, a surface camp for every planet and a 3D flight between planets.
+> - The drill visibly evolves with upgrades (new heads and teeth, exhausts, turbine, reactor, hydraulic arms, sorter hopper, cargo), and every skin is its own 3D model.
+> - A new soft cartoon UI (Nunito font, rounded panels). On phones the mine fills the screen and upgrades live in a bottom sheet that can be pulled down. Nothing is ever drawn over the drill: labels sit at the edges, and notifications appear on the panel edge.
+> - Juicier feedback: coins and gems fly into the counters, sparks and debris come off the drill head.
 > - New chiptune soundtrack with melody, bass and drums.
 > - A faster first minute: first upgrade in seconds, first plate and treasures within the first minute, quests from the start.
 > - Active play on top of idle: treasures in the walls, Overdrive, crits, underground pests, companions.
-> - New covers and 1080p MP4 preview videos (landscape and portrait).
+> - New covers rendered from the 3D scene and 1080p MP4 preview videos (landscape and portrait).
 
 ## 5. Как проходит запуск
 
@@ -98,7 +99,7 @@ Deeper! is a pixel-art idle clicker about a drill digging to the center of the p
 ## 6. Чеклист (адаптация STANDARD §14 под CrazyGames)
 
 **Архив**
-- [x] `index.html` в корне zip, имена латиницей, 18 файлов (лимит 1500), 0,27 МБ (лимит 50 МБ / 20 МБ для мобильной главной)
+- [x] `index.html` в корне zip, имена латиницей, 24 файла (лимит 1500), zip 0,3 МБ / распаковано 1 МБ (лимит 50 МБ / 20 МБ для мобильной главной)
 - [x] Внешний запрос только к `sdk.crazygames.com` (проверено автотестом), пути относительные
 - [x] `promo/`, `tools/`, `videos/` не попали в архив
 

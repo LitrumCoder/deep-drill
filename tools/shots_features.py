@@ -13,6 +13,8 @@ GAME = os.path.join(ROOT, 'deep-drill')
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'screenshots')
 os.makedirs(OUT, exist_ok=True)
 
+GPU_ARGS = ['--enable-gpu', '--use-angle=d3d11'] if os.name == 'nt' else ['--enable-gpu']
+
 
 class Quiet(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *a):
@@ -30,7 +32,7 @@ SETUP = """(() => { const s=G.Save.data; s.seenTips={tap:true,upgrade:true,engin
   s.stats.playTime=999; s.stats.nodes=31; s.stats.quests=7; s.relics=[0,2]; s.planet=2; s.shards=10; })()"""
 
 with sync_playwright() as p:
-    b = p.chromium.launch()
+    b = p.chromium.launch(args=GPU_ARGS)
     for lang in ['en', 'ru']:
         ctx = b.new_context(viewport={'width': 1280, 'height': 720}, locale='en-US' if lang == 'en' else 'ru-RU')
         page = ctx.new_page()

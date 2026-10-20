@@ -18,6 +18,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / 'videos'
 OUT.mkdir(exist_ok=True)
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
+GPU_ARGS = ['--enable-gpu', '--use-angle=d3d11'] if os.name == 'nt' else ['--enable-gpu']
 
 
 class Quiet(http.server.SimpleHTTPRequestHandler):
@@ -42,7 +43,7 @@ def record(name, w, h, cover):
     tmp = OUT / ('tmp-' + name)
     shutil.rmtree(tmp, ignore_errors=True)
     with sync_playwright() as p:
-        b = p.chromium.launch()
+        b = p.chromium.launch(args=GPU_ARGS)
         ctx = b.new_context(viewport={'width': w, 'height': h}, record_video_dir=str(tmp), record_video_size={'width': w, 'height': h},
                             locale='en-US', is_mobile=h > w, has_touch=h > w)
         page = ctx.new_page()
@@ -50,10 +51,9 @@ def record(name, w, h, cover):
         page.on('requestfailed', lambda rq: 'crazygames' not in rq.url and print('request failed:', rq.url, rq.failure))
         t_page = time.time()
         page.route('**/crazygames-sdk-v3.js', lambda r: r.abort())
-        page.goto(f'{BASE}/promo/promo.html')
-        page.wait_for_function('window.promoReady === true')
-        page.evaluate(f"""(() => {{ const c=document.getElementById('{cover}'); document.body.innerHTML=''; document.body.style.padding='0';
-           document.body.style.background='#000'; c.style.width='100vw'; c.style.height='100vh'; c.style.border='0'; c.style.display='block'; document.body.append(c); }})()""")
+        page.goto(f'{BASE}/promo/{cover}')
+        page.evaluate("""(() => { const img=document.querySelector('img'); document.body.style.cssText='margin:0;background:#000;overflow:hidden';
+           img.style.cssText='display:block;width:100vw;height:100vh;object-fit:cover'; })()""")
         page.wait_for_timeout(150)
         t_cover = time.time()
         page.wait_for_timeout(1500)
@@ -92,6 +92,7 @@ def record(name, w, h, cover):
                 page.evaluate("G.UI.confirmCore()")
                 page.wait_for_timeout(500)
                 page.locator('button:visible', has_text='Blow it up!').first.click()
+                page.mouse.move(2, 2)
                 boomed = True
             page.wait_for_timeout(100)
         page.wait_for_timeout(300)
@@ -113,6 +114,6 @@ if __name__ == '__main__':
     import sys
     which = sys.argv[1:] or ['landscape', 'portrait']
     if 'landscape' in which:
-        record('landscape', 1920, 1080, 'landscape')
+        record('landscape', 1920, 1080, 'cover-landscape-1920x1080.png')
     if 'portrait' in which:
-        record('portrait', 1080, 1620, 'portrait')
+        record('portrait', 1080, 1620, 'cover-portrait-800x1200.png')

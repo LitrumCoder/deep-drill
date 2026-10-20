@@ -43,14 +43,24 @@
     flagRu: svg('<rect width="30" height="20" fill="#fff"/><rect y="6.67" width="30" height="6.67" fill="#1C57D8"/><rect y="13.33" width="30" height="6.67" fill="#E3262E"/>', '0 0 30 20'),
     flagEn: svg('<clipPath id="icuk"><rect width="60" height="30"/></clipPath><g clip-path="url(#icuk)"><rect width="60" height="30" fill="#012169"/><path d="M0 0L60 30M60 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0L60 30M60 0L0 30" stroke="#C8102E" stroke-width="2.4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g>', '0 0 60 30'),
   };
-  for (const k of ['coin', 'gem', 'shard', 'gear', 'gift', 'tasks', 'geode', 'geodeOpen', 'bolt', 'video', 'check', 'close', 'up', 'planet', 'bag',
-    'sound', 'music', 'vibro', 'shake', 'globe', 'num', 'user', 'trophy', 'cart', 'hand', 'drill', 'engine', 'sorter', 'grip', 'storage', 'boom', 'fire', 'relic']) IC[k] = G.Pix.icon(k);
+  IC.fire = svg('<path d="M12 2c1 4 6 6.5 6 12a6 6 0 0 1-12 0c0-3 1.6-4.6 2.6-6 .3 2 1.2 3 2.2 3.4C10 8.6 10.6 5 12 2z" fill="#FF7A2A" stroke="#B83A0A" stroke-width="1.3" stroke-linejoin="round"/><path d="M12 11.5c1.6 1.8 3 3 3 5a3 3 0 0 1-6 0c0-1.6 1.2-2.6 3-5z" fill="#FFD447"/>');
+  IC.relic = svg('<path d="M12 2.5l7.5 4.2v8.6L12 21.5l-7.5-6.2V6.7z" fill="#9B5DE5" stroke="#5A2E9A" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 6.5l3.6 2.2v4.4L12 16l-3.6-2.9V8.7z" fill="#E0C8FF"/>');
+  const RELIC = [
+    '<circle cx="12" cy="12" r="9.5" fill="#D9B98A" stroke="#8E6A3A" stroke-width="1.4"/><path d="M12 12m0-1.5a1.5 1.5 0 1 1-1.4 2 3.4 3.4 0 1 1 4.6-3.6 5.6 5.6 0 1 1-8.2 4.6 7.8 7.8 0 1 1 13.4-4" fill="none" stroke="#8E6A3A" stroke-width="1.5" stroke-linecap="round"/>',
+    '<ellipse cx="12" cy="12.5" rx="7" ry="9" fill="#9A8C7A" stroke="#5A4E40" stroke-width="1.4"/><path d="M12 4v17M7 8.5h10M5.5 12h13M6 15.5h12M7.5 18.5h9" stroke="#5A4E40" stroke-width="1.2"/><circle cx="9.5" cy="6.5" r="1" fill="#2A2420"/><circle cx="14.5" cy="6.5" r="1" fill="#2A2420"/>',
+    '<path d="M4 10c0-4.5 4-7 9-7s7 3 7 7c0 2-1 3-2.4 3.6L17 18H7.6L6 14C4.8 13 4 11.8 4 10z" fill="#EDE4D0" stroke="#8C8068" stroke-width="1.4" stroke-linejoin="round"/><circle cx="14.6" cy="9" r="2.2" fill="#3A3028"/><path d="M8 18l1-3 1.4 3 1.2-3 1.4 3 1.2-3 1.4 3" fill="#fff" stroke="#8C8068" stroke-width="1"/>',
+    '<rect x="2.5" y="3" width="19" height="18" rx="5" fill="#A89E92" stroke="#6A6058" stroke-width="1.4"/><path d="M12 19V5M12 7l-4-2M12 7l4-2M12 10.5l-5-2M12 10.5l5-2M12 14l-5.5-2M12 14l5.5-2M12 17.5l-4.5-1.5M12 17.5l4.5-1.5" stroke="#4E7A44" stroke-width="1.6" stroke-linecap="round"/>',
+    '<path d="M12 2.5c4 3.5 7.5 7.5 7.5 11.5a7.5 7.5 0 0 1-15 0C4.5 10 8 6 12 2.5z" fill="#FFB02E" fill-opacity=".9" stroke="#B8640A" stroke-width="1.4"/><ellipse cx="12" cy="14.5" rx="2" ry="3.2" fill="#4A2A10"/><path d="M10 12.5l-2.5-1.5M10 15l-3 .5M14 12.5l2.5-1.5M14 15l3 .5M10.5 18l-2 1.5M13.5 18l2 1.5" stroke="#4A2A10" stroke-width="1.1" stroke-linecap="round"/><path d="M8 8a5 5 0 0 1 3-3" stroke="#FFE8B0" stroke-width="1.4" fill="none" stroke-linecap="round"/>',
+    '<path d="M4 20C4 11 9 4 19 3.5c-1 1.5-1.5 3-1.2 4.6C11 9 8.5 13.5 8 20z" fill="#F4EAD2" stroke="#9A8A66" stroke-width="1.4" stroke-linejoin="round"/><path d="M5.5 16.5l3 .8M7 12.5l3 1.4M10 9l2.6 1.6" stroke="#C9B890" stroke-width="1.1"/>',
+    '<ellipse cx="12" cy="13" rx="7" ry="9" fill="#7DDB6A" stroke="#2E8A3A" stroke-width="1.4"/><circle cx="9.5" cy="10" r="1.6" fill="#B04BFF"/><circle cx="14.5" cy="14" r="2" fill="#B04BFF"/><circle cx="10.5" cy="17" r="1.2" fill="#B04BFF"/><path d="M8.5 6.5a4 4 0 0 1 2.5-1.8" stroke="#D8FFC8" stroke-width="1.4" fill="none" stroke-linecap="round"/>',
+    '<path d="M12 20.5S3 14.6 3 8.8A4.6 4.6 0 0 1 12 6.6a4.6 4.6 0 0 1 9 2.2c0 5.8-9 11.7-9 11.7z" fill="#9FE6FF" stroke="#2D86B8" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 9l2 2-1.5 2 2 2M15 8.5l-1 2.5 2 1.5" stroke="#E8FBFF" stroke-width="1.3" fill="none" stroke-linecap="round"/>',
+    '<circle cx="12" cy="12" r="8.5" fill="#FF6A2A" stroke="#A8300A" stroke-width="1.4"/><circle cx="12" cy="12" r="5" fill="#FFB347"/><circle cx="12" cy="12" r="2.2" fill="#FFF2A8"/><circle cx="8.6" cy="8.4" r="1.6" fill="#fff" fill-opacity=".8"/>',
+    '<path d="M12 2l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 16.9l-5.9 3.3 1.3-6.6L2.5 9l6.6-.8z" fill="#FFE04A" stroke="#C99A0E" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 6.5l1.4 3 3.2.4" stroke="#FFF8C8" stroke-width="1.4" fill="none" stroke-linecap="round"/>',
+    '<circle cx="12" cy="12" r="9.5" fill="#D9934A" stroke="#8A4E14" stroke-width="1.4"/><circle cx="12" cy="12" r="6.6" fill="none" stroke="#B06A24" stroke-width="1.2"/><rect x="9.8" y="9.8" width="4.4" height="4.4" fill="#5A3010"/><path d="M7 6.8a7 7 0 0 1 3.4-1.6" stroke="#FFD8A0" stroke-width="1.4" fill="none" stroke-linecap="round"/>',
+    '<path d="M8 21h8l-1-3h-6z" fill="#C99A0E"/><path d="M8.5 18c-1-2-1.5-4.5-1.5-7 0-3 2-5 5-5s5 2 5 5c0 2.5-.5 5-1.5 7z" fill="#FFD447" stroke="#A87A08" stroke-width="1.3"/><circle cx="12" cy="4.6" r="2.4" fill="#FFD447" stroke="#A87A08" stroke-width="1.3"/><circle cx="10.2" cy="10.5" r="1.1" fill="#E8344E"/><circle cx="13.8" cy="10.5" r="1.1" fill="#E8344E"/><path d="M10 14h4" stroke="#A87A08" stroke-width="1.4" stroke-linecap="round"/>',
+  ].map(b => svg(b));
   const CUR = { coins: IC.coin, gems: IC.gem };
-  const spriteURL = {};
-  function spriteImg(key, canvas, cls) {
-    if (!spriteURL[key]) spriteURL[key] = canvas.toDataURL();
-    return `<img class="${cls || 'spr'}" src="${spriteURL[key]}" alt="">`;
-  }
+  const petImg = id => `<img class="ic pet" src="${G.Render.petPreviewURL(id)}" alt="">`;
 
   // ---------- dom helpers ----------
   function h(tag, props, ...kids) {
@@ -253,9 +263,10 @@
     E.wknd = h('div', { class: 'strip wknd' });
     E.left = h('div', { class: 'scleft' });
     E.questT = h('span'); E.questBar = h('i');
-    E.quest = h('button', { class: 'strip quest interactive', type: 'button', onclick: () => { sfx('button'); setTab('goals'); } },
+    E.quest = h('button', { class: 'strip quest interactive', type: 'button', onclick: () => { sfx('button'); setTab('goals'); setSheet(true); } },
       h('span', { class: 'qic', html: IC.trophy }), E.questT, h('span', { class: 'qbar' }, E.questBar));
-    E.scene.append(h('div', { class: 'sctop' }, h('div', { class: 'depthlbl' }, E.depthB, E.layerN, E.planetN), E.quest, E.vein, E.wknd, E.left));
+    E.scene.append(h('div', { class: 'sctop' }, h('div', { class: 'depthlbl' }, E.depthB, h('div', { class: 'dsub' }, E.layerN, E.planetN)), E.quest),
+      h('div', { class: 'scright' }, E.vein, E.wknd, E.left));
     E.bDaily = btn(IC.gift, 'gray', () => showDaily());
     E.bTasks = btn(IC.tasks, 'gray', () => showTasks());
     E.geodeT = h('small');
@@ -291,22 +302,25 @@
       const b = btn(m === 'max' ? t('buyMax') : '×' + m, '', () => { S().buyMode = m; G.Save.save(); updateSeg(); refreshUpgrades(true); });
       b._m = m; E.seg.append(b); return b;
     });
+    E.grab = h('button', { class: 'grab interactive', type: 'button', 'aria-label': 'toggle', onclick: () => { sfx('button'); setSheet(!sheetOpen); } }, h('i'));
     E.ctrl = h('div', { id: 'ctrl' }, E.turbo, E.seg);
-    app.append(E.ctrl);
-
     E.body = h('div', { id: 'body', class: 'scroll interactive' });
-    app.append(E.body);
 
     E.tabs = h('div', { id: 'tabs' });
+    const tabBtn = name => () => { if (tab === name && isSheetMode()) setSheet(!sheetOpen); else { setTab(name); setSheet(true); } };
     E.tabBtns = {
-      up: btn(IC.up + lbl(t('tab.up')), '', () => setTab('up')),
-      goals: btn(IC.trophy + lbl(t('tab.goals')), '', () => setTab('goals')),
-      planet: btn(IC.planet + lbl(t('tab.planet')), '', () => setTab('planet')),
-      shop: btn(IC.bag + lbl(t('tab.shop')), '', () => setTab('shop')),
+      up: btn(IC.up + lbl(t('tab.up')), '', tabBtn('up')),
+      goals: btn(IC.trophy + lbl(t('tab.goals')), '', tabBtn('goals')),
+      planet: btn(IC.planet + lbl(t('tab.planet')), '', tabBtn('planet')),
+      shop: btn(IC.bag + lbl(t('tab.shop')), '', tabBtn('shop')),
     };
     E.dGoals = h('span', { class: 'dot' }); E.tabBtns.goals.append(E.dGoals);
     E.dShop = h('span', { class: 'dot' }); E.tabBtns.shop.append(E.dShop);
-    E.tabs.append(E.tabBtns.up, E.tabBtns.goals, E.tabBtns.planet, E.tabBtns.shop, btn(IC.gear, 'gear', () => showSettings()));
+    E.tabs.append(E.tabBtns.up, E.tabBtns.goals, E.tabBtns.planet, E.tabBtns.shop);
+    E.hud.append(btn(IC.gear, 'gear icon', () => showSettings()));
+    E.sheet = h('div', { id: 'sheet' }, E.grab, E.ctrl, E.body, E.tabs);
+    app.append(E.sheet);
+    setSheet(sheetOpen, true);
     E.tip = h('div', { class: 'utip' });
     root.append(E.tip);
     if (!tipListener) {
@@ -315,10 +329,8 @@
         if (tipFor && e.pointerType !== 'mouse' && !e.target.closest('.urow') && !e.target.closest('.utip')) hideTip();
       }, true);
     }
-    app.append(E.tabs);
-
     toastWrap = h('div', { class: 'toasts' });
-    E.scene.append(toastWrap);
+    E.sheet.append(toastWrap);
 
     updateSeg();
     setTab(tab, true);
@@ -328,6 +340,15 @@
       toast(t('ads.off'));
       if (tab === 'shop') renderShop();
     });
+  }
+
+  // portrait: the panel is a bottom sheet that can be pulled down so the whole screen shows the mine
+  let sheetOpen = true;
+  const isSheetMode = () => innerWidth < innerHeight;
+  function setSheet(open, quiet) {
+    sheetOpen = open;
+    toggle(E.sheet, 'closed', !open);
+    if (!quiet) { hideTip(); Tut.clear(); }
   }
 
   function updateSeg() { E.segBtns.forEach(b => toggle(b, 'on', b._m === S().buyMode)); }
@@ -362,8 +383,8 @@
       return t('eff.storage', { v: 2 + lv });
     };
     const nxt = id === 'storage' && L >= 10 ? null : L + n;
-    const tiers = G.Pix.TIERS[id];
-    const cur = G.Pix.tierOf(id, L);
+    const tiers = G.Look.TIERS[id];
+    const cur = G.Look.tierOf(id, L);
     const look = cur + 1 < tiers.length ? t('tip.look', { lv: tiers[cur + 1], name: t('look.' + id + '.' + (cur + 1)) }) : t('tip.lookMax');
     return `<b>${t('up.' + id)}</b><p>${t('tip.' + id)}</p>` +
       `<div class="trow"><span>${t('tip.now')}</span><em>${val(L)}</em></div>` +
@@ -378,6 +399,7 @@
     const tw = E.tip.offsetWidth * zoom, th = E.tip.offsetHeight * zoom;
     let x = r.left + r.width / 2 - tw / 2, y = r.top - th - 8;
     if (y < 8) y = r.bottom + 8;
+    if (isSheetMode()) y = Math.max(y, E.sheet.getBoundingClientRect().top + 6);
     x = Math.max(8, Math.min(innerWidth - tw - 8, x));
     E.tip.style.left = Z(x) + 'px'; E.tip.style.top = Z(y) + 'px';
   }
@@ -490,12 +512,12 @@
     if (!G.Game.atCore()) E.pane.append(h('div', { class: 'note' }, t('core.need', { d: fmt(G.CORE) })));
     E.pane.append(h('div', { class: 'sechead' }, t('relic.title')));
     const nr = s.relics.length;
-    E.pane.append(h('div', { class: 'note' }, t('relic.bonus', { a: nr, b: G.Pix.RELIC_COUNT, n: nr * 5 }) + ' — ' + t('relic.hint')));
+    E.pane.append(h('div', { class: 'note' }, t('relic.bonus', { a: nr, b: G.Look.RELIC_COUNT, n: nr * 5 }) + ' — ' + t('relic.hint')));
     const rg = h('div', { class: 'relics' });
-    for (let i = 0; i < G.Pix.RELIC_COUNT; i++) {
+    for (let i = 0; i < G.Look.RELIC_COUNT; i++) {
       const found = s.relics.includes(i);
-      rg.append(h('div', { class: 'relicc' + (found ? ' on' : ''), html: spriteImg('relic' + i, G.Pix.relic(i)) +
-        `<span>${found ? t('relic.' + i) : '???<br><em>' + t('relic.locked', { p: G.Pix.RELIC_REQ[i] }) + '</em>'}</span>` }));
+      rg.append(h('div', { class: 'relicc' + (found ? ' on' : ''), html: RELIC[i] +
+        `<span>${found ? t('relic.' + i) : '???<br><em>' + t('relic.locked', { p: G.Look.RELIC_REQ[i] }) + '</em>'}</span>` }));
     }
     E.pane.append(rg);
     E.pane.append(h('div', { class: 'sechead' }, t('perk.title')));
@@ -570,7 +592,7 @@
   function renderShop() {
     const s = S();
     const key = ['shop', s.gems, s.skins.active, s.skins.owned.join(','), Math.floor(s.turboLeft / 60), Platform.adsOk, G.lang, G.fmt(G.Game.incomeBase()),
-      JSON.stringify(G.Pix.look(s.lv)), JSON.stringify(s.pets), JSON.stringify(s.lab), s.forge].join('|');
+      JSON.stringify(G.Look.look(s.lv)), JSON.stringify(s.pets), JSON.stringify(s.lab), s.forge].join('|');
     if (key === sig) return;
     sig = key;
     const st = E.body.scrollTop;
@@ -640,8 +662,8 @@
       const lv = C.petLv(id), max = C.PETS[id].max;
       const desc = petDesc(id, Math.max(1, lv));
       const sub = lv ? t('pet.lv', { n: lv, m: max }) + (lv < max ? ' · ' + t('pet.next', { v: petDesc(id, lv + 1) }) : '') : null;
-      E.pane.append(gemCard(spriteImg('pet-' + id, G.Pix.enemy(id), 'spr ic'), t('pet.' + id), desc, sub, C.petCost(id), lv >= max,
-        () => { const ok = C.buyPet(id); if (ok) toast(spriteImg('pet-' + id, G.Pix.enemy(id), 'spr ic') + `<span>${t(lv ? 'lab.got' : 'pet.got', { name: t('pet.' + id) })}</span>`); return ok; },
+      E.pane.append(gemCard(petImg(id), t('pet.' + id), desc, sub, C.petCost(id), lv >= max,
+        () => { const ok = C.buyPet(id); if (ok) toast(petImg(id) +`<span>${t(lv ? 'lab.got' : 'pet.got', { name: t('pet.' + id) })}</span>`); return ok; },
         lv ? '' : t('pet.hire')));
     }
     E.pane.append(h('div', { class: 'sechead' }, t('lab.title')));
@@ -962,7 +984,7 @@
     G.Render.shake(4);
   }
   function enemyGone(e) {
-    if (e.type === 'mole' && e.stolen > 0) toast(G.Pix.icon('coin') + `<span>${t('en.gone.mole', { n: fmt(e.stolen) })}</span>`);
+    if (e.type === 'mole' && e.stolen > 0) toast(IC.coin + `<span>${t('en.gone.mole', { n: fmt(e.stolen) })}</span>`);
     else if (e.type !== 'mole') toast(`<span>${t('en.gone.other')}</span>`);
   }
   function lookUpgraded(id, tier) {
@@ -971,7 +993,7 @@
   }
   function overdrive(on) { if (on) toast(IC.fire + `<span>${t('od.on')}</span>`); }
   function relicFound(i) {
-    toast(spriteImg('relic' + i, G.Pix.relic(i), 'spr ic') + `<span>${t('relic.toast', { name: t('relic.' + i) })}</span>`);
+    toast(RELIC[i] + `<span>${t('relic.toast', { name: t('relic.' + i) })}</span>`);
     sfx('reward');
     sig = '';
   }
@@ -999,7 +1021,8 @@
       }
     }
     function sceneRect() { return E.scene.getBoundingClientRect(); }
-    const r0 = sceneRect;
+    // hints that don't point at the drill sit on the panel edge, the same spot toasts use, so the mine stays clear
+    function panelSpot() { const r = E.sheet.getBoundingClientRect(); return [r.left + r.width / 2, r.top + 8 * zoom]; }
     function tick() {
       if (until && performance.now() > until) { mark(cur); clear(); }
       if (anyModal() || G.Render.busy()) { if (el) el.style.visibility = 'hidden'; if (hand) hand.style.visibility = 'hidden'; return; }
@@ -1007,7 +1030,11 @@
       const s = S();
       if (!cur && !seen('tap')) {
         const r = sceneRect(), L = G.Render.L;
-        show('tap', t('tut.tap'), L.cx, Math.min(r.bottom - 110 * zoom, L.tipY + 62 * zoom), { skip: true, hand: [L.cx - 16 * zoom, L.tipY - 4 * zoom] });
+        const below = s.plate ? E.plate.getBoundingClientRect().bottom + 8 * zoom : L.tipY + 56 * zoom;
+        show('tap', t('tut.tap'), L.cx, Math.min(innerHeight - 110 * zoom, below), { skip: true, hand: [L.cx - 16 * zoom, L.tipY - 4 * zoom] });
+      } else if (!cur && seen('tap') && !seen('upgrade') && s.coins >= G.cost('drill', s.lv.drill) && !sheetOpen && isSheetMode()) {
+        const b = E.tabBtns.up.getBoundingClientRect();
+        show('upgrade', t('tut.upgrade'), b.left + b.width / 2 + 40, Math.max(8, b.top - 64), { hand: [b.left + b.width / 2 - 10, b.top + b.height / 2 - 10] });
       } else if (!cur && seen('tap') && !seen('upgrade') && s.coins >= G.cost('drill', s.lv.drill) && tab === 'up' && rows.drill) {
         const b = rows.drill.btn.getBoundingClientRect();
         rows.drill.el.classList.add('hl');
@@ -1019,16 +1046,16 @@
       }
       if (!cur && seen('tap') && !seen('node') && G.Render.nodes.length) {
         const n = G.Render.nodes[G.Render.nodes.length - 1];
-        const P = G.Render.PX, R = G.Render.R;
-        const nx = R.x + (n.x + 5) * P, ny = R.y + (G.Render.L.tipY - R.y) + (n.wy - G.Game.rt.camB) * P;
-        show('node', t('tut.node'), Math.max(r0().left + 130, Math.min(r0().right - 130, nx)), Math.max(r0().top + 40, ny - 90 * zoom), { dur: 4500, hand: [nx - 14 * zoom, ny + 6 * zoom] });
+        const { x: nx, y: ny } = G.Render.nodeScreen(n);
+        show('node', t('tut.node'), ...panelSpot(), { dur: 4500, hand: [nx - 14 * zoom, ny + 6 * zoom] });
       } else if (!cur && seen('tap') && !seen('heat') && G.Game.rt.heat > 0.2) {
-        show('heat', t('tut.heat'), G.Render.L.cx, r0().bottom - 96 * zoom, { dur: 4500 });
+        show('heat', t('tut.heat'), ...panelSpot(), { dur: 4500 });
       }
       if (cur === 'engine' && !until) { mark('engine'); }
       if (cur !== 'upgrade' && rows.drill) rows.drill.el.classList.remove('hl');
       if (cur !== 'engine' && rows.engine) rows.engine.el.classList.remove('hl');
-      if (cur === 'upgrade' && tab !== 'up') clear();
+      const sheetShut = !sheetOpen && isSheetMode();
+      if ((cur === 'upgrade' && !sheetShut || cur === 'engine') && tab !== 'up') clear();
     }
     function tapped() {
       if (cur === 'tap' && ++taps >= 3) { mark('tap'); clear(); }
@@ -1039,13 +1066,11 @@
     }
     function plate() {
       if (seen('plate') || (cur && cur !== 'engine')) return;
-      const r = sceneRect();
-      show('plate', t('tut.plate'), r.left + r.width / 2, Math.max(r.top + 50, G.Render.L.cy - G.Render.L.s * 1.6), { dur: 5000 });
+      show('plate', t('tut.plate'), ...panelSpot(), { dur: 5000 });
     }
     function cart() {
       if (seen('cart') || cur) return;
-      const r = sceneRect();
-      show('cart', t('tut.cart'), r.left + r.width / 2, r.top + r.height * 0.62, { dur: 5000 });
+      show('cart', t('tut.cart'), ...panelSpot(), { dur: 5000 });
     }
     return { tick, tapped, bought, plate, cart, clear };
   })();

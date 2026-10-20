@@ -15,6 +15,8 @@ GAME = os.path.join(ROOT, 'deep-drill')
 SHOTS = os.path.join(ROOT, 'screenshots')
 os.makedirs(SHOTS, exist_ok=True)
 SAVE_KEY = 'deep-drill-save'
+# headless Chromium falls back to SwiftShader (~5 fps for the 3D scene); use the real GPU so timings match a player's browser
+GPU_ARGS = ['--enable-gpu', '--use-angle=d3d11'] if os.name == 'nt' else ['--enable-gpu']
 
 results = []
 
@@ -52,6 +54,8 @@ def new_page(browser, w, h, mobile, errors, sdk=False, locale='en-US'):
     def on_console(m):
         if m.type in ('error', 'warning'):
             if not sdk and 'ERR_FAILED' in m.text:
+                return
+            if 'GL Driver Message' in m.text:   # driver performance notes about reading back the shop thumbnails
                 return
             errors.append(f'{m.type}: {m.text}')
     page.on('console', on_console)
@@ -101,6 +105,17 @@ def tap_scene(page, n=1, mobile=False):
         time.sleep(0.12)
 
 
+def drill_blockers(page):
+    """UI elements drawn over the drill. The scene must keep the drill clear on every screen size."""
+    return page.evaluate("""(() => { const b = G.Render.L.box; if (!b) return ['no drill box'];
+      const out = [];
+      document.querySelectorAll('#hud, #sheet, .sctop > *, .scright > *, .scleft > *, .platebox.on, .corebox.on, .lbanner.on, .toast').forEach(e => {
+        const r = e.getBoundingClientRect(); if (!r.width || getComputedStyle(e).visibility === 'hidden') return;
+        if (r.right > b.x + 4 && r.left < b.x + b.w - 4 && r.bottom > b.y + 4 && r.top < b.y + b.h - 4) out.push(e.className || e.id);
+      });
+      return out; })()""")
+
+
 def close_modals(page):
     page.evaluate("G.UI.closeAll()")
     time.sleep(0.25)
@@ -120,6 +135,8 @@ def run_viewport(browser, w, h, mobile, tag):
     check(f'{tag}: loads to gameplay', page.evaluate("!!G.Game && !document.getElementById('loader')"))
     time.sleep(0.6)
     shot(page, f'{tag}-01-start')
+    bl = drill_blockers(page)
+    check(f'{tag}: no UI over the drill at start', not bl, bl)
 
     tap_scene(page, 3, mobile)
     check(f'{tag}: 3 taps counted, tutorial step 1 done', page.evaluate("G.Save.data.stats.taps === 3 && !!G.Save.data.seenTips.tap"),
@@ -138,10 +155,16 @@ def run_viewport(browser, w, h, mobile, tag):
     time.sleep(0.4)
     shot(page, f'{tag}-03-plate')
     check(f'{tag}: plate box visible', page.locator('.platebox.on').count() == 1)
+    page.evaluate("G.UI.toast('Achievement: Drill Bit level 100 test toast')")
+    time.sleep(0.3)
+    bl = drill_blockers(page)
+    check(f'{tag}: plate bar and toasts keep the drill clear', not bl, bl)
     page.evaluate("G.Save.data.plate.hp = 0.01")
     wait_for(page, "!G.Save.data.plate", 3)
     time.sleep(0.25)
     shot(page, f'{tag}-04-new-layer')
+    bl = drill_blockers(page)
+    check(f'{tag}: new-layer banner keeps the drill clear', not bl, bl)
     check(f'{tag}: layer 1 reached after plate', page.evaluate("G.Game.layer() === 1"))
     time.sleep(1.6)
 
@@ -198,6 +221,8 @@ def run_viewport(browser, w, h, mobile, tag):
     page.evaluate("G.Save.data.depth = 10000; G.Save.data.plate = null")
     time.sleep(0.5)
     shot(page, f'{tag}-14-core')
+    bl = drill_blockers(page)
+    check(f'{tag}: core button keeps the drill clear', not bl, bl)
     page.evaluate("G.UI.confirmCore()")
     time.sleep(0.4)
     shot(page, f'{tag}-15-core-confirm')
@@ -310,7 +335,7 @@ def acceptance(browser):
     # language switch through the real settings UI must keep the scene alive
     page.evaluate("G.UI.closeAll()")
     time.sleep(0.2)
-    page.locator('#tabs .gear').click()
+    page.locator('#hud .gear').click()
     time.sleep(0.3)
     click_btn(page, 'RU')
     time.sleep(0.5)
@@ -345,7 +370,7 @@ def acceptance(browser):
     page.mouse.move(5, 5)
 
     # visual tiers
-    r = page.evaluate("""(() => { const s=G.Save.data; const a=G.Pix.look({drill:150,engine:30,grip:5,sorter:60,storage:10});
+    r = page.evaluate("""(() => { const s=G.Save.data; const a=G.Look.look({drill:150,engine:30,grip:5,sorter:60,storage:10});
       s.lv.drill=24; s.coins=1e12; s.buyMode=1; let seen=null; const f=G.UI.lookUpgraded; G.UI.lookUpgraded=(id,t)=>{seen=[id,t]; f(id,t);};
       G.Game.buy('drill'); G.UI.lookUpgraded=f; return {a, seen}; })()""")
     check('Visual tiers: levels change the drill look, tier-up is announced', r['a'] == {'head': 4, 'engine': 3, 'grip': 1, 'sorter': 4, 'storage': 4} and r['seen'] == ['drill', 1], r)
@@ -494,7 +519,7 @@ def balance():
 
 
 with sync_playwright() as p:
-    b = p.chromium.launch()
+    b = p.chromium.launch(args=GPU_ARGS)
     only = os.environ.get('ONLY', '')
     if not only or only == 'acc':
         acceptance(b)

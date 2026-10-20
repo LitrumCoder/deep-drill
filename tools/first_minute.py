@@ -13,6 +13,8 @@ GAME = os.path.join(ROOT, 'deep-drill')
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'screenshots')
 os.makedirs(OUT, exist_ok=True)
 
+GPU_ARGS = ['--enable-gpu', '--use-angle=d3d11'] if os.name == 'nt' else ['--enable-gpu']
+
 
 class Quiet(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *a):
@@ -25,7 +27,7 @@ threading.Thread(target=srv.serve_forever, daemon=True).start()
 base = f'http://127.0.0.1:{srv.server_address[1]}'
 
 with sync_playwright() as p:
-    b = p.chromium.launch()
+    b = p.chromium.launch(args=GPU_ARGS)
     ctx = b.new_context(viewport={'width': 1280, 'height': 720}, locale='en-US')
     page = ctx.new_page()
     errs = []
@@ -49,8 +51,7 @@ with sync_playwright() as p:
                     loc.first.click()
                     break
         if k % 15 == 0:
-            page.evaluate("(() => { const n=G.Render.nodes[0]; if (n) { const R=G.Render.R, P=G.Render.PX; } })()")
-            node = page.evaluate("(() => { const n=G.Render.nodes[0]; if (!n) return null; const R=G.Render.R, P=G.Render.PX; return [R.x+(n.x+5)*P, R.y+(G.Render.L.tipY-R.y)+(n.wy-G.Game.rt.camB)*P+5*P]; })()")
+            node = page.evaluate("(() => { const n=G.Render.nodes[0]; if (!n) return null; const p=G.Render.nodeScreen(n); return [p.x, p.y]; })()")
             if node:
                 page.mouse.click(*node)
         if el >= marks[0]:

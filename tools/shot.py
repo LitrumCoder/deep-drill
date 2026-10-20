@@ -16,6 +16,8 @@ os.makedirs(OUT, exist_ok=True)
 
 SIZES = [('p390', 390, 844, True), ('l1280', 1280, 720, False), ('l821', 821, 462, False), ('m800', 800, 450, True), ('l1920', 1920, 1080, False)]
 
+GPU_ARGS = ['--enable-gpu', '--use-angle=d3d11'] if os.name == 'nt' else ['--enable-gpu']
+
 
 class Quiet(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *a):
@@ -28,7 +30,7 @@ threading.Thread(target=srv.serve_forever, daemon=True).start()
 base = f'http://127.0.0.1:{srv.server_address[1]}'
 
 with sync_playwright() as p:
-    b = p.chromium.launch()
+    b = p.chromium.launch(args=GPU_ARGS)
     for tag, w, h, mob in SIZES:
         ctx = b.new_context(viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob, device_scale_factor=1)
         page = ctx.new_page()
